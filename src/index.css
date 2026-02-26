@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #005f73;       /* Azul Petróleo Oficial */
+  --color-secondary: #A5D8FF;     /* Azul Claro */
+  --color-background: #F8FAFC;    /* Fundo da Página */
+  --color-card: #FFFFFF;          /* Fundo dos Cards */
+  --color-text-main: #1E293B;     /* textPrimary */
+  --color-text-muted: #64748B;    /* textSecondary */
+  --color-brand-blue: #004A77;    /* textBlue */
+  --color-accent: #E2E8F0;        /* border */
+
+  --radius-large: 24px;
+  --radius-medium: 15px;
+  
+  --shadow-elevation: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #005f73; border-radius: 10px; }
