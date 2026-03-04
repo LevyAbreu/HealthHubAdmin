@@ -1,39 +1,36 @@
+import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, Users, Calendar, FileText, Settings, LogOut } from 'lucide-react';
 
 export default function Sidebar() {
   return (
-    <aside className="fixed left-5 top-5 h-[calc(100vh-40px)] z-50 w-20 hover:w-64 bg-primary border border-white/10 flex flex-col items-start py-8 transition-all duration-300 ease-in-out group shadow-elevation rounded-large overflow-hidden">
-      
-      {/* Logo Area */}
-      <div className="px-6 mb-12 flex items-center gap-4 w-full">
-        {/* Quadrado Branco com iniciais em Azul Petróleo */}
-        <div className="min-w-[40px] h-10 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-black/20">
-          <span className="text-primary font-black text-xl tracking-tighter">HH</span>
+    <aside className="fixed left-5 top-5 h-[calc(100vh-40px)] z-50 w-20 hover:w-64 bg-primary border border-white/10 flex flex-col items-start py-8 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group shadow-2xl rounded-[2.5rem] overflow-hidden">
+      <div className="px-5 mb-12 flex items-center gap-4 w-full">
+        <div className="min-w-[40px] h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-black/20 transition-transform duration-500">
+          <span className="text-primary font-black text-xl tracking-tighter italic">HH</span>
         </div>
-        {/* Texto HealthHub em Branco */}
-        <span className="text-white font-bold text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-          HealthHub
+        <span className="text-white font-black text-xl tracking-tight opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">
+          Health<span className="text-white/50">Hub</span>
         </span>
       </div>
 
-      {/* Navegação Principal */}
-      <nav className="flex-1 w-full px-4 space-y-2">
-        <SidebarItem icon={<LayoutDashboard size={24} />} label="Dashboard" active />
-        <SidebarItem icon={<Users size={24} />} label="Pacientes" />
-        <SidebarItem icon={<Calendar size={24} />} label="Agenda" />
-        <SidebarItem icon={<FileText size={24} />} label="Relatórios" />
+      <nav className="flex-1 w-full px-3 space-y-3">
+        <SidebarItem to="/dashboard" icon={<LayoutDashboard size={22} />} label="Dashboard" />
+        <SidebarItem to="/pacientes" icon={<Users size={22} />} label="Pacientes" />
+        <SidebarItem to="/agenda" icon={<Calendar size={22} />} label="Agenda" />
+        <SidebarItem to="/relatorios" icon={<FileText size={22} />} label="Relatórios" />
       </nav>
 
-      {/* Footer / Configurações */}
-      <div className="w-full px-4 mt-auto space-y-2">
-        <SidebarItem icon={<Settings size={24} />} label="Configurações" />
+      <div className="w-full px-3 mt-auto space-y-3">
+        <SidebarItem to="/configuracoes" icon={<Settings size={22} />} label="Configurações" />
         
-        {/* Botão Sair - Mantido em Vermelho para destaque de ação crítica */}
-        <button className="flex items-center gap-4 w-full p-3 rounded-medium text-rose-400 hover:bg-rose-400/10 transition-colors group/logout">
-          <div className="min-w-[24px]">
-            <LogOut size={24} className="group-hover/logout:translate-x-1 transition-transform" />
+        <button 
+          onClick={() => console.log("Logout")}
+          className="flex items-center gap-4 w-full p-4 rounded-2xl text-rose-300 hover:bg-rose-500/10 transition-all duration-300 group/logout cursor-pointer"
+        >
+          <div className="min-w-[24px] flex justify-center">
+            <LogOut size={22} className="group-hover/logout:-translate-x-1 transition-transform" />
           </div>
-          <span className="font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          <span className="font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap uppercase tracking-widest">
             Sair
           </span>
         </button>
@@ -42,34 +39,39 @@ export default function Sidebar() {
   );
 }
 
-function SidebarItem({ icon, label, active = false }) {
+function SidebarItem({ icon, label, to }) {
   return (
-    <a 
-      href="#" 
-      className={`flex items-center gap-4 w-full p-3 rounded-medium transition-all duration-200 group/item ${
-        active 
-          ? 'bg-white/15 text-white shadow-inner' 
-          : 'text-white/60 hover:bg-white/5 hover:text-white'
-      }`}
+    <NavLink
+      to={to}
+      className={({ isActive }) => `
+        relative flex items-center gap-4 w-full p-4 rounded-2xl transition-all duration-500 group/item
+        ${isActive 
+          ? 'text-white' 
+          : 'text-white/40 hover:text-white hover:bg-white/10'
+        }
+      `}
     >
-      {/* Ícone: Fica branco puro se ativo ou em hover */}
-      <div className={`min-w-[24px] transition-all duration-200 ${
-        active ? 'text-white scale-110' : 'group-hover/item:text-white group-hover/item:scale-110'
-      }`}>
-        {icon}
-      </div>
-      
-      {/* Label: Aparece apenas quando a sidebar expande */}
-      <span className={`font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-        active ? 'text-white' : ''
-      }`}>
-        {label}
-      </span>
+      {({ isActive }) => (
+        <>
+          {isActive && (
+            <div className="absolute left-0 w-1.5 h-6 bg-secondary rounded-r-full shadow-[2px_0_10px_rgba(165,216,255,0.4)]" />
+          )}
 
-      {/* Indicador lateral (ponto azul claro/secondary) para o item ativo */}
-      {active && (
-        <div className="ml-auto min-w-[6px] h-6 bg-secondary rounded-full shadow-[0_0_10px_rgba(165,216,255,0.6)]" />
+          <div className={`min-w-[24px] flex justify-center transition-transform duration-300 ${
+            isActive ? 'scale-110 text-secondary' : 'group-hover/item:scale-110'
+          }`}>
+            {icon}
+          </div>
+        
+          <span className="font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-500 tracking-tight overflow-hidden">
+            {label}
+          </span>
+
+          {isActive && (
+            <div className="absolute inset-0 bg-white/5 rounded-2xl -z-10 backdrop-blur-sm" />
+          )}
+        </>
       )}
-    </a>
+    </NavLink>
   );
 }

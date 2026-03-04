@@ -1,5 +1,6 @@
 import { Search, Bell, ChevronDown } from 'lucide-react';
 import { PROFILE_DATA } from '../utils/mockData';
+import SearchBar from './searchBar';
 
 export default function Header() {
     const { user } = PROFILE_DATA;
@@ -13,14 +14,7 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="relative group">
-              <Search className="absolute left-3 top-2.5 text-text-muted group-focus-within:text-brand-blue transition-colors" size={18} />
-              <input 
-                type="text" 
-                placeholder="Procurar paciente..." 
-                className="pl-10 pr-4 py-2 rounded-medium bg-secondary/50 border border-accent/50 text-text-main text-sm w-64 focus:outline-none focus:border-brand-blue/50 transition-all placeholder:text-text-muted"
-              />
-            </div>
+            <SearchBar />
 
             <button className="relative p-2 text-text-muted hover:text-text-main transition-colors">
               <Bell size={20} />
