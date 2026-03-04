@@ -1,5 +1,5 @@
 import SearchBar from './searchBar';
-import { FilterBtn } from './actionbtn';
+import { FilterBtn } from './actionBtn';
 import Btn from './btn';
 import { Plus, LayoutGrid, List, Users } from 'lucide-react';
 
